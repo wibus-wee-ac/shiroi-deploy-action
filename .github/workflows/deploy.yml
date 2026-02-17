@@ -97,7 +97,7 @@ jobs:
           cache: 'pnpm'
       - uses: jongwooo/next-cache@v1
       - name: Install dependencies
-        run: pnpm install
+        run: pnpm install --no-frozen-lockfile
       - name: Build project
         run: |
           sh ./ci-release-build.sh
@@ -167,7 +167,7 @@ jobs:
           script: |
             set -e
             source $HOME/.bashrc
-            basedir=$HOME/shiro
+            basedir=$HOME/mx-space/shiro
             workdir=$basedir/${{ github.run_number }}
             mkdir -p $workdir
             mkdir -p $basedir/.cache
