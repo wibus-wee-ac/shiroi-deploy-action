@@ -212,7 +212,7 @@ jobs:
           port: ${{ secrets.PORT }}
           script: |
             set -e
-            source $HOME/.bashrc
+            #source $HOME/.bashrc
             basedir=$HOME/mx-space/shiro
             workdir=$basedir/${{ github.run_number }}
             mkdir -p $workdir
