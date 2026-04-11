@@ -181,8 +181,8 @@ jobs:
       - name: Move assets to root
         run: mv assets/release.zip release.zip
 
-      - name: Prepare standalone PM2 config
-        run: cp pm2/ecosystem.config.js ecosystem.config.js
+      # - name: Prepare standalone PM2 config
+        # run: cp pm2/ecosystem.config.js ecosystem.config.js
 
       - name: copy file via ssh password
         uses: appleboy/scp-action@v0.1.7
@@ -195,16 +195,16 @@ jobs:
           source: 'release.zip'
           target: '/tmp/shiro'
 
-      - name: copy PM2 config via ssh password
-        uses: appleboy/scp-action@v0.1.7
-        with:
-          host: ${{ secrets.HOST }}
-          username: ${{ secrets.USER }}
-          password: ${{ secrets.PASSWORD }}
-          key: ${{ secrets.KEY }}
-          port: ${{ secrets.PORT }}
-          source: 'ecosystem.config.js'
-          target: '/tmp/shiro'
+      # - name: copy PM2 config via ssh password
+      #   uses: appleboy/scp-action@v0.1.7
+      #   with:
+      #     host: ${{ secrets.HOST }}
+      #     username: ${{ secrets.USER }}
+      #     password: ${{ secrets.PASSWORD }}
+      #     key: ${{ secrets.KEY }}
+      #     port: ${{ secrets.PORT }}
+      #     source: 'ecosystem.config.js'
+      #     target: '/tmp/shiro'
 
       - name: Exec deploy script with SSH
         uses: appleboy/ssh-action@master
@@ -224,7 +224,7 @@ jobs:
             mkdir -p $workdir
             mkdir -p $basedir/.cache
             mv /tmp/shiro/release.zip $workdir/release.zip
-            install -m 644 /tmp/shiro/ecosystem.config.js $basedir/ecosystem.config.js
+            # install -m 644 /tmp/shiro/ecosystem.config.js $basedir/ecosystem.config.js
             cd $workdir
             unzip -qq -o $workdir/release.zip
             rm -r /tmp/shiro
@@ -238,13 +238,13 @@ jobs:
             rm -rf $workdir/standalone/apps/web/.next/cache
             ln -sf $basedir/.cache $workdir/standalone/apps/web/.next/cache
             cd $basedir
-            if pm2 describe Shiroi >/dev/null 2>&1; then
-              pm2 reload ecosystem.config.js --update-env
-            else
-              pm2 start ecosystem.config.js --update-env
-            fi
+            # if pm2 describe Shiroi >/dev/null 2>&1; then
+              # pm2 reload ecosystem.config.js --update-env
+            # else
+              # pm2 start ecosystem.config.js --update-env
+            # fi
             rm $workdir/release.zip
-            pm2 save
+            # pm2 save
             echo "Deployed successfully"
 
       - name: After deploy script
