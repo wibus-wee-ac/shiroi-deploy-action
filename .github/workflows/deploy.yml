@@ -107,7 +107,7 @@ jobs:
           #!/usr/bin/env bash
           set -e
           REPO_ROOT=$(pwd)
-          cd app/web
+          cd apps/web
           touch .env
           echo "BASE_URL=${{ secrets.BASE_URL }}" >> .env
           echo "NEXT_PUBLIC_API_URL=${{ secrets.NEXT_PUBLIC_API_URL }}" >> .env
